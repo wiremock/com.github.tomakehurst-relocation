@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
 
   <name>Temporary relocation parent POM for WireMock packages</name>
-  <description>New groupID: org.wiremoc. See wiremock/wiremock/issues/2325 for the references</description>
+  <description>New groupID: org.wiremock. See wiremock/wiremock #2325 for the references</description>
   <url>https://github.com/wiremock/wiremock</url>
 
   <modules>
