@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.tomakehurst</groupId>
+  <artifactId>relocation-parent</artifactId>
+  <version>3.0.0</version>
+  <packaging>pom</packaging>
+
+  <name>Temporary relocation parent POM for WireMock packages</name>
+  <description>New groupID: org.wiremoc. See wiremock/wiremock/issues/2325 for the references</description>
+  <url>https://github.com/wiremock/wiremock</url>
+
+  <modules>
+    <module>wiremock</module>
+    <module>wiremock-jre8</module>
+    <module>wiremock-standalone</module>
+    <module>wiremock-jre8-standalone</module>
+  </modules>
+
+  <licenses>
+    <license>
+      <name>Apache License v2</name>
+      <url>https://github.com/wiremock/wiremock/blob/master/LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+</project>
