@@ -29,6 +29,7 @@ publishing {
             artifactId = "${jar.getArchiveBaseName().get()}"
             pom.packaging 'pom'
             pom.withXml {
+                asNode().appendNode('description', 'The Flexible API mocking tool')
                 asNode().children().last() + pomInfo
             }
         }
