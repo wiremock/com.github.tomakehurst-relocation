@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://oss.sonatype.org"
+        }
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'signing'
+    id 'maven-publish'
+}
+
+publishing {
+    repositories {
+        maven {
+            url 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            credentials {
+                username repoUser
+                password repoPassword
+            }
+        }
+
+        maven {
+            name 'snapshots'
+            url 'https://oss.sonatype.org/content/repositories/snapshots'
+            credentials {
+                username repoUser
+                password repoPassword
+            }
+        }
+    }
+
+    publications {
+        main(MavenPublication) { publication ->
+            artifactId = "${jar.getArchiveBaseName().get()}"
+            pom.packaging 'pom'
+            pom.withXml {
+                asNode().children().last() + pomInfo
+            }
+        }
+    }
+}
+
+signing {
+    required {
+        !version.toString().contains("SNAPSHOT") && (gradle.taskGraph.hasTask("uploadArchives") || gradle.taskGraph.hasTask("publish"))
+    }
+    sign publishing.publications
+}
+
+task localRelease {
+    dependsOn clean, signMainPublication, publishToMavenLocal
+}

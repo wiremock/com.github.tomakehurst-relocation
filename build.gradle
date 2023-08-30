@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://oss.sonatype.org"
+        }
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'signing'
+    id 'maven-publish'
+}
+
+group = 'com.github.tomakehurst'
+
+allprojects {
+
+    ext {
+        runningOnCI = System.getenv('CI') == 'true'
+
+        repoUser =     this.hasProperty('sonatypeUser')     ? sonatypeUser : 'default'
+        repoPassword = this.hasProperty('sonatypePassword') ? sonatypePassword : 'default'
+
+        pomInfo = {
+            name 'WireMock'
+            url 'http://wiremock.org'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            distributionManagement {
+                relocation {
+                    groupId 'org.wiremock'
+                }
+            }
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    group = 'com.github.tomakehurst'
+    version = '3.0.0'
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
+}
+
+task addGitTag {
+    doLast {
+        println "git tag ${version}".execute().text
+        println "git push origin --tags".execute().text
+    }
+}
+
+//task release {
+//    dependsOn clean, 'publishAllPublicationsToMavenRepository', addGitTag
+//}
+//
+//task localRelease {
+//    dependsOn clean, publishToMavenLocal
+//}
+
+wrapper {
+    gradleVersion = '8.3'
+}

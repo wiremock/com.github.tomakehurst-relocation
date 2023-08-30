@@ -1,0 +1,5 @@
+rootProject.name = 'wiremock-relocations'
+include 'wiremock'
+//include 'wiremock-jre8'
+//include 'wiremock-jre8-standalone'
+//include 'wiremock-standalone'
