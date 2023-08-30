@@ -17,6 +17,16 @@ group = 'com.github.tomakehurst'
 
 allprojects {
 
+    repositories {
+        mavenCentral()
+    }
+
+    group = 'com.github.tomakehurst'
+    version = '3.0.0'
+
+    sourceCompatibility = 11
+    targetCompatibility = 11
+
     ext {
         runningOnCI = System.getenv('CI') == 'true'
 
@@ -25,11 +35,11 @@ allprojects {
 
         pomInfo = {
             name 'WireMock'
-            url 'http://wiremock.org'
+            url 'https://wiremock.org'
             licenses {
                 license {
                     name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                    url 'https://www.apache.org/license/LICENSE-2.0.txt'
                     distribution 'repo'
                 }
             }
@@ -41,32 +51,7 @@ allprojects {
             }
         }
     }
-
-    repositories {
-        mavenCentral()
-    }
-
-    group = 'com.github.tomakehurst'
-    version = '3.0.0'
-
-    sourceCompatibility = 11
-    targetCompatibility = 11
 }
-
-task addGitTag {
-    doLast {
-        println "git tag ${version}".execute().text
-        println "git push origin --tags".execute().text
-    }
-}
-
-//task release {
-//    dependsOn clean, 'publishAllPublicationsToMavenRepository', addGitTag
-//}
-//
-//task localRelease {
-//    dependsOn clean, publishToMavenLocal
-//}
 
 wrapper {
     gradleVersion = '8.3'
