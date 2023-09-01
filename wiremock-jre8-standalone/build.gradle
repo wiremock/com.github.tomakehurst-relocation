@@ -13,6 +13,38 @@ plugins {
     id 'maven-publish'
 }
 
+ext {
+    pomInfoWithArtifactId = {
+        name 'WireMock'
+        url 'https://wiremock.org'
+        scm {
+            connection 'https://github.com/wiremock/wiremock.git'
+            developerConnection 'https://github.com/wiremock/wiremock.git'
+            url 'https://github.com/wiremock/wiremock'
+        }
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'https://www.apache.org/license/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+        developers {
+            developer {
+                id 'tomakehurst'
+                name 'Tom Akehurst'
+            }
+        }
+
+        distributionManagement {
+            relocation {
+                groupId 'org.wiremock'
+                artifactId 'wiremock-standalone'
+            }
+        }
+    }
+}
+
 publishing {
     repositories {
         maven {
@@ -30,7 +62,7 @@ publishing {
             pom.packaging 'pom'
             pom.withXml {
                 asNode().appendNode('description', 'The Flexible API mocking tool')
-                asNode().children().last() + pomInfo
+                asNode().children().last() + pomInfoWithArtifactId
             }
         }
     }
